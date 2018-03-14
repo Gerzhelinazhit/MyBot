@@ -20,6 +20,7 @@ import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.api.objects.CallbackQuery;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
+import org.telegram.telegrambots.api.objects.User;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -29,6 +30,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 
+import javax.persistence.Column;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,12 +47,13 @@ public class Bot extends TelegramLongPollingBot {
     private static final String WEATHER_FOR_NOW = "☂ Погода сейчас";
 
 
-
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String message_text  = update.getMessage().getText();
             long chat_id = update.getMessage().getChatId();
+           int user =update.getMessage().getFrom().getId();
+            System.out.println(user);
             System.out.println(message_text);
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {

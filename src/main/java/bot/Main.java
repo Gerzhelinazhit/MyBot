@@ -3,6 +3,7 @@ package bot;
 import bot.config.Config;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.validator.constraints.CreditCardNumber;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -11,7 +12,9 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import javax.persistence.Column;
 import javax.persistence.metamodel.EntityType;
+import javax.validation.constraints.Min;
 
 public class Main {
 
