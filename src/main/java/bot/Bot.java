@@ -33,6 +33,7 @@ import javax.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.*;
 
@@ -72,9 +73,12 @@ public class Bot extends TelegramLongPollingBot {
                         .setChatId(chat_id)
                         .setText(MenuUtil.CALENDAR);
                 CalendarUtil calendar = new CalendarUtil();
+                LocalDate currentShownDate = new LocalDate();
+
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
                 inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(LocalDate.now()));
                 System.out.println(LocalDate.now());
+                currentShownDate = LocalDate.now();
                 message.setReplyMarkup(inlineKeyboardMarkup);
                 try {
                     execute(message);
@@ -193,7 +197,7 @@ public class Bot extends TelegramLongPollingBot {
                 break;
             }*/
 
-        //TODO make work all calbback buttons from calendar
+        //TODO make work all callback buttons from calendar
          else if (update.hasCallbackQuery()) {
             // Set variables
             String call_data = update.getCallbackQuery().getData();
@@ -261,9 +265,10 @@ public class Bot extends TelegramLongPollingBot {
     @Override
     public String getBotUsername() {
         return Config.BOT_NAME;
-        //возвращаем юзера
+        //возвращает юзера
     }
 
+    @Deprecated
     public String grammarChecker(String txt){
 
         txt = txt.toLowerCase();

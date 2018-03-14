@@ -7,8 +7,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-    public static final String CONFIGURATION_BOT_FILE = "./config/bot/bot.properties";
-    public static final String CONFIGURATION_DB_FILE = "./config/database/database.properties";
+    public static final String CONFIGURATION_BOT_FILE = "src/main/resources/bot/bot.properties";
+    public static final String CONFIGURATION_DB_FILE = "src/main/resources/database/database.properties";
 
     public static String BOT_NAME;
     public static String BOT_TOKEN;

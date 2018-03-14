@@ -1,9 +1,17 @@
 package bot;
 
 import bot.config.Config;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
+import javax.persistence.metamodel.EntityType;
 
 public class Main {
 
@@ -29,7 +37,7 @@ public class Main {
     public static void main(final String[] args) throws Exception {
 
         Config.load();
-
+        Session session = HibernateUtil.getSession();
         ApiContextInitializer.init(); // Инициализируем апи
         TelegramBotsApi botapi = new TelegramBotsApi();
         try {
@@ -38,20 +46,6 @@ public class Main {
             e.printStackTrace();
         }
 
-      /*  final Session session = getSession();
-        try {
-            System.out.println("querying all the managed entities...");
-            final Metamodel metamodel = session.getSessionFactory().getMetamodel();
-            for (EntityType<?> entityType : metamodel.getEntities()) {
-                final String entityName = entityType.getName();
-                final Query query = session.createQuery("from " + entityName);
-                System.out.println("executing: " + query.getQueryString());
-                for (Object o : query.list()) {
-                    System.out.println("  " + o);
-                }
-            }
-        } finally {
-            session.close();
-        }*/
+
     }
 }
