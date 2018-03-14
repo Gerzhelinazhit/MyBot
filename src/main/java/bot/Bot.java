@@ -69,6 +69,7 @@ public class Bot extends TelegramLongPollingBot {
             }
  // ------------------------- КАЛЕНДАРЬ -----------------------------------
             else if (message_text.equals(MenuUtil.CALENDAR)){
+
                 SendMessage message = new SendMessage()
                         .setChatId(chat_id)
                         .setText(MenuUtil.CALENDAR);
@@ -77,6 +78,7 @@ public class Bot extends TelegramLongPollingBot {
 
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
                 inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(LocalDate.now()));
+
                 System.out.println(LocalDate.now());
                 currentShownDate = LocalDate.now();
                 message.setReplyMarkup(inlineKeyboardMarkup);
