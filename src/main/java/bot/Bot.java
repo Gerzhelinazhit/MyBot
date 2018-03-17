@@ -51,14 +51,15 @@ public class Bot extends TelegramLongPollingBot {
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String message_text  = update.getMessage().getText();
-            long chat_id = update.getMessage().getChatId();
-           int user =update.getMessage().getFrom().getId();
+            long chatId = update.getMessage().getChatId();
+           User user =update.getMessage().getFrom();
+           
             System.out.println(user);
             System.out.println(message_text);
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
                 SendMessage message = new SendMessage() // Create a message object object
-                        .setChatId(chat_id)
+                        .setChatId(chatId)
                         .setText(message_text);
                 ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
                 keyboardMarkup.setKeyboard(MenuUtil.generateMenu());
@@ -75,7 +76,7 @@ public class Bot extends TelegramLongPollingBot {
             else if (message_text.equals(MenuUtil.CALENDAR)){
 
                 SendMessage message = new SendMessage()
-                        .setChatId(chat_id)
+                        .setChatId(chatId)
                         .setText(MenuUtil.CALENDAR);
                 CalendarUtil calendar = new CalendarUtil();
                 LocalDate currentShownDate = new LocalDate();
@@ -98,7 +99,7 @@ public class Bot extends TelegramLongPollingBot {
  // ------------------------- ПОГОДА -----------------------------------
             else if (message_text.equals(MenuUtil.WEATHER)){
                 SendMessage message = new SendMessage()
-                        .setChatId(chat_id)
+                        .setChatId(chatId)
                         .setText(MenuUtil.WEATHER);
 
             }
@@ -106,20 +107,20 @@ public class Bot extends TelegramLongPollingBot {
  // ------------------------- ВИКТОРИНА -----------------------------------
             else if (message_text.equals(MenuUtil.QUIZ)){
                 SendMessage message = new SendMessage()
-                        .setChatId(chat_id)
+                        .setChatId(chatId)
                         .setText(MenuUtil.QUIZ);
             }
  //TODO make photo feature
 // ------------------------- ФОТО -----------------------------------
             else if (message_text.equals(MenuUtil.PHOTO)){
                 SendMessage message = new SendMessage()
-                        .setChatId(chat_id)
+                        .setChatId(chatId)
                         .setText(MenuUtil.PHOTO);
 
             }
             else {
                 SendMessage message = new SendMessage() // Create a message object object
-                        .setChatId(chat_id)
+                        .setChatId(chatId)
                         .setText(message_text);
                 message.setText("Я пока не знаю что ответить");
                 try{
@@ -156,9 +157,9 @@ public class Bot extends TelegramLongPollingBot {
                 }
                 case "/calendar": {
                     CalendarUtil calendar = new CalendarUtil();
-                    long chat_id = update.getMessage().getChatId();
+                    long chatId = update.getMessage().getChatId();
                     SendMessage message = new SendMessage()
-                            .setChatId(chat_id)
+                            .setChatId(chatId)
                             .setText("You send /calendar");
                     InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
                     inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(LocalDate.now()));
@@ -208,7 +209,7 @@ public class Bot extends TelegramLongPollingBot {
             // Set variables
             String call_data = update.getCallbackQuery().getData();
             long message_id = update.getCallbackQuery().getMessage().getMessageId();
-            long chat_id = update.getCallbackQuery().getMessage().getChatId();
+            long chatId = update.getCallbackQuery().getMessage().getChatId();
             System.out.println( call_data);
             if (call_data.equals(">")) {
                 SendMessage answer = new SendMessage();
@@ -220,7 +221,7 @@ public class Bot extends TelegramLongPollingBot {
                 inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(nextMonth));
 
                 EditMessageText new_message = new EditMessageText()
-                        .setChatId(chat_id)
+                        .setChatId(chatId)
                         .setMessageId(toIntExact(message_id))
                         .setText("Следующий месяц");
                 new_message.setReplyMarkup(inlineKeyboardMarkup);
