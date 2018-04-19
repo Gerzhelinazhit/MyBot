@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="bot.entity.UserEntity" table="user" schema="bot">
+        <id name="id">
+            <column name="ID" sql-type="int(11)"/>
+        </id>
+        <property name="firstName">
+            <column name="FIRST_NAME" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="isBot">
+            <column name="IS_BOT" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="lastName">
+            <column name="LAST_NAME" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="userName">
+            <column name="USER_NAME" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="languageCode">
+            <column name="LANGUAGE_CODE" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

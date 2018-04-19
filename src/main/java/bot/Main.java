@@ -4,6 +4,8 @@ import bot.config.Config;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
@@ -38,6 +40,8 @@ public class Main {
     }*/
 
     public static void main(final String[] args) throws Exception {
+
+        ApplicationContext context  = new FileSystemXmlApplicationContext("./resources/application-context.xml");
 
         Config.load();
         Session session = HibernateUtil.getSession();
