@@ -58,6 +58,11 @@ public class Bot extends TelegramLongPollingBot {
             System.out.println(message_text);
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
+
+                User user1 = update.getMessage().getFrom();
+                System.out.println(user.getId());
+                System.out.println(user1);
+
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
                         .setText(message_text);

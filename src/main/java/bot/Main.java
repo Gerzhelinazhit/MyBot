@@ -44,7 +44,7 @@ public class Main {
         ApplicationContext context  = new FileSystemXmlApplicationContext("./resources/application-context.xml");
 
         Config.load();
-        Session session = HibernateUtil.getSession();
+       // Session session = HibernateUtil.getSession();
         ApiContextInitializer.init(); // Инициализируем апи
         TelegramBotsApi botapi = new TelegramBotsApi();
         try {

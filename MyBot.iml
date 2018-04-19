@@ -5,7 +5,7 @@
       <configuration>
         <datasource-map>
           <unit-entry name="bot:hibernate.cfg.xml" />
-          <unit-entry name="hibernate.cfg.xml" />
+          <unit-entry name="hibernate.cfg.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
           <unit-entry name="sessionFactory" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
         </datasource-map>
         <naming-strategy-map />
