@@ -55,7 +55,10 @@
     </bean>
 
     <bean id="user" class="bot.entity.UserEntity">
+    </bean>
 
+    <bean id="abstractDao" class="bot.dao.AbstractDao" abstract="true">
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
 </beans>

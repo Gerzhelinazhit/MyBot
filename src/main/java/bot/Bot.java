@@ -4,6 +4,9 @@ import bot.calendar.CalendarUtil;
 
 
 import bot.config.Config;
+import bot.converter.UserConverter;
+import bot.dao.AbstractDao;
+import bot.dao.UserDao;
 import bot.replyMenu.MenuUtil;
 import com.github.fedy2.weather.YahooWeatherService;
 import com.github.fedy2.weather.data.Channel;
@@ -13,6 +16,8 @@ import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.joda.time.LocalDate;
 import org.json.JSONObject;
 import org.json.JSONStringer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
@@ -46,6 +51,9 @@ public class Bot extends TelegramLongPollingBot {
 
     private static final String WEATHER_FOR_NOW = "☂ Погода сейчас";
 
+    ApplicationContext context  = new FileSystemXmlApplicationContext("./resources/application-context.xml");
+
+    UserDao dao = (UserDao) context.getBean("userDao");
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -59,9 +67,12 @@ public class Bot extends TelegramLongPollingBot {
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
 
-                User user1 = update.getMessage().getFrom();
+                User userInfo = update.getMessage().getFrom();
                 System.out.println(user.getId());
-                System.out.println(user1);
+                System.out.println(userInfo);
+                UserConverter userConverter = new UserConverter();
+
+                dao.persist(userConverter.getUserInfo(userInfo));
 
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
