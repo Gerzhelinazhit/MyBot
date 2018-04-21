@@ -50,6 +50,7 @@ import static java.lang.Math.toIntExact;
 public class Bot extends TelegramLongPollingBot {
 
     private static final String WEATHER_FOR_NOW = "☂ Погода сейчас";
+private LocalDate currentShownDates = new LocalDate();
 
     ApplicationContext context  = new FileSystemXmlApplicationContext("./resources/application-context.xml");
 
@@ -61,14 +62,14 @@ public class Bot extends TelegramLongPollingBot {
             String message_text  = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
            User user =update.getMessage().getFrom();
-           
+            System.out.println(update.getMessage().getChatId());
             System.out.println(user);
             System.out.println(message_text);
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
 
                 User userInfo = update.getMessage().getFrom();
-                System.out.println(user.getId());
+                System.out.println(update.getMessage().getChatId());
                 System.out.println(userInfo);
                 UserConverter userConverter = new UserConverter();
 
@@ -95,13 +96,13 @@ public class Bot extends TelegramLongPollingBot {
                         .setChatId(chatId)
                         .setText(MenuUtil.CALENDAR);
                 CalendarUtil calendar = new CalendarUtil();
-                LocalDate currentShownDate = new LocalDate();
+                currentShownDates = LocalDate.now();
 
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-                inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(LocalDate.now()));
+                inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(currentShownDates));
 
                 System.out.println(LocalDate.now());
-                currentShownDate = LocalDate.now();
+
                 message.setReplyMarkup(inlineKeyboardMarkup);
                 try {
                     execute(message);
@@ -232,8 +233,8 @@ public class Bot extends TelegramLongPollingBot {
 
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
                 CalendarUtil calendar = new CalendarUtil();
-                LocalDate today = new LocalDate();
-                LocalDate nextMonth = today.plusMonths(1).withDayOfMonth(1);
+
+                LocalDate nextMonth = currentShownDates.plusMonths(1).withDayOfMonth(1);
                 inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(nextMonth));
 
                 EditMessageText new_message = new EditMessageText()
@@ -241,7 +242,7 @@ public class Bot extends TelegramLongPollingBot {
                         .setMessageId(toIntExact(message_id))
                         .setText("Следующий месяц");
                 new_message.setReplyMarkup(inlineKeyboardMarkup);
-
+                currentShownDates = nextMonth;
 
                 try {
                     execute(new_message);

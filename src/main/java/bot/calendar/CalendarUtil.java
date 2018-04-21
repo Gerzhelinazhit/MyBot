@@ -26,7 +26,7 @@ public class CalendarUtil {
 
         // row - Month and Year
         List<InlineKeyboardButton> headerRow = new ArrayList<>();
-        headerRow.add(createButton(IGNORE, new SimpleDateFormat("MMM yyyy").format(date.toDate())));
+        headerRow.add(createButton(date.toString(), new SimpleDateFormat("MMM yyyy").format(date.toDate())));
         keyboard.add(headerRow);
 
         // row - Days of the week
