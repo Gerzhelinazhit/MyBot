@@ -221,7 +221,7 @@ private LocalDate currentShownDates = new LocalDate();
                 break;
             }*/
 
-        //TODO make work all callback buttons from calendar
+        //TODO learn calendar to make notes
          else if (update.hasCallbackQuery()) {
             // Set variables
             String call_data = update.getCallbackQuery().getData();
@@ -229,8 +229,6 @@ private LocalDate currentShownDates = new LocalDate();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
             System.out.println( call_data);
             if (call_data.equals(">")) {
-                SendMessage answer = new SendMessage();
-
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
                 CalendarUtil calendar = new CalendarUtil();
 
@@ -248,6 +246,24 @@ private LocalDate currentShownDates = new LocalDate();
                     execute(new_message);
                 } catch (TelegramApiException a) {
                     a.printStackTrace();
+                }
+            } else if (call_data.equals("<")){
+                InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+                CalendarUtil calendar = new CalendarUtil();
+
+                LocalDate previousMonth = currentShownDates.minusMonths(1).withDayOfMonth(1);
+                inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(previousMonth));
+
+                EditMessageText new_message = new EditMessageText()
+                        .setChatId(chatId)
+                        .setMessageId(toIntExact(message_id))
+                        .setText("Предыдущий месяц");
+                new_message.setReplyMarkup(inlineKeyboardMarkup);
+                currentShownDates = previousMonth;
+                try {
+                    execute(new_message);
+                }catch (TelegramApiException e){
+                    e.printStackTrace();
                 }
             }
         }
