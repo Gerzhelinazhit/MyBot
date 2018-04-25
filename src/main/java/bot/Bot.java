@@ -73,8 +73,7 @@ private LocalDate currentShownDates = new LocalDate();
                 System.out.println(userInfo);
                 UserConverter userConverter = new UserConverter();
 
-                dao.persist(userConverter.getUserInfo(userInfo));
-
+     //           dao.persist(userConverter.getUserInfo(userInfo));
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
                         .setText(message_text);
@@ -82,6 +81,7 @@ private LocalDate currentShownDates = new LocalDate();
                 keyboardMarkup.setKeyboard(MenuUtil.generateMenu());
                 message.setReplyMarkup(keyboardMarkup);
                 message.setText("Выберите пункт меню");
+
                 try {
                     execute(message); // Sending our message object to user
                 } catch (TelegramApiException e) {
@@ -100,7 +100,6 @@ private LocalDate currentShownDates = new LocalDate();
 
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
                 inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(currentShownDates));
-
                 System.out.println(LocalDate.now());
 
                 message.setReplyMarkup(inlineKeyboardMarkup);
@@ -127,12 +126,20 @@ private LocalDate currentShownDates = new LocalDate();
                         .setChatId(chatId)
                         .setText(MenuUtil.QUIZ);
             }
- //TODO make photo feature
-// ------------------------- ФОТО -----------------------------------
-            else if (message_text.equals(MenuUtil.PHOTO)){
+ //TODO make converter
+// ------------------------- Конвертер валют -----------------------------------
+            else if (message_text.equals(MenuUtil.CONVERTER)) {
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
-                        .setText(MenuUtil.PHOTO);
+                        .setText(MenuUtil.CONVERTER);
+
+            }
+  //TODO make Notes
+// ------------------------- Заметки -----------------------------------
+            else if (message_text.equals(MenuUtil.NOTES)){
+                SendMessage message = new SendMessage()
+                        .setChatId(chatId)
+                        .setText(MenuUtil.NOTES);
 
             }
             else {
@@ -238,8 +245,8 @@ private LocalDate currentShownDates = new LocalDate();
                 EditMessageText new_message = new EditMessageText()
                         .setChatId(chatId)
                         .setMessageId(toIntExact(message_id))
-                        .setText("Следующий месяц");
-                new_message.setReplyMarkup(inlineKeyboardMarkup);
+                        .setText("Следующий месяц")
+                        .setReplyMarkup(inlineKeyboardMarkup);
                 currentShownDates = nextMonth;
 
                 try {
@@ -257,8 +264,8 @@ private LocalDate currentShownDates = new LocalDate();
                 EditMessageText new_message = new EditMessageText()
                         .setChatId(chatId)
                         .setMessageId(toIntExact(message_id))
-                        .setText("Предыдущий месяц");
-                new_message.setReplyMarkup(inlineKeyboardMarkup);
+                        .setText("Предыдущий месяц")
+                        .setReplyMarkup(inlineKeyboardMarkup);
                 currentShownDates = previousMonth;
                 try {
                     execute(new_message);
