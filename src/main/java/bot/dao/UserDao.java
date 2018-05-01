@@ -1,11 +1,12 @@
 package bot.dao;
 
 import bot.entity.UserEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Component
 public interface UserDao {
     UserEntity getByKey(Long key);
     void persist(UserEntity userEntity);

@@ -1,6 +1,9 @@
 package bot.entity;
 
+
+
 import javax.persistence.*;
+
 
 @Entity
 @Table(name = "user", schema = "bot", catalog = "")

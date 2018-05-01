@@ -4,16 +4,21 @@ import bot.dao.AbstractDao;
 import bot.dao.UserDao;
 import bot.entity.UserEntity;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Repository
+@Transactional
 public class UserDaoImpl extends AbstractDao<Long, UserEntity> implements UserDao {
 
+        @Override
         public List<UserEntity> getAll(){
         List list ;
-        getSession().getTransaction().begin();
-        list =getSession().createQuery("from UserEntity bot").getResultList();
-        getSession().getTransaction().commit();
+
+        list =getEntityManager().createQuery("from UserEntity bot").getResultList();
+
         return list;
     }
 

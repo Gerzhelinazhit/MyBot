@@ -3,40 +3,46 @@ package bot.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 
+@Repository
+@Transactional
 public abstract class AbstractDao <PK extends Serializable, T> {
     private final Class<T> persistentClass;
     private SessionFactory sessionFactory;
+
+    @SuppressWarnings("uncheked")
     public AbstractDao() {
         this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
+@PersistenceContext
+    private EntityManager em;
 
-//    private EntityManager em = ConnectionDBEntity.getEntityManagerFactory().createEntityManager();
 
-//   protected EntityManager getEntityManager() {
-//        return em;
-//    }
-    @Transactional
-    public T getByKey(PK key) {
-        return getSession().find(persistentClass, key);
+    protected EntityManager getEntityManager() {
+        return em;
     }
 
-@Transactional
+public T getByKey(PK key) {
+        return getEntityManager().find(persistentClass, key);
+    }
+
+
     public void persist(T entity) {
-getSession().getTransaction().begin();
-        getSession().persist(entity);
-getSession().getTransaction().commit();
+        getEntityManager().persist(entity);
     }
-    @Transactional
+
     public void update(T entity) {
 
-        getSession().merge(entity);
+        getEntityManager().merge(entity);
 
     }
 
@@ -47,9 +53,9 @@ getSession().getTransaction().commit();
 //        getEntityManager().getTransaction().commit();
 //        return list;
 //    }
-    @Transactional
+
     public void delete(T entity) {
-        getSession().remove(getSession().contains(entity) ? entity : getSession().merge(entity));
+        getEntityManager().remove(getEntityManager().contains(entity) ? entity : getEntityManager().merge(entity));
 
     }
 

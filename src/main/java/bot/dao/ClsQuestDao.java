@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public interface ClsQuestDao {
     ClsQuestEntity getByKey(Long key);
     void persist(ClsQuestEntity clsAnswerEntity);
