@@ -5,45 +5,26 @@ import bot.calendar.CalendarUtil;
 
 import bot.config.Config;
 import bot.converter.UserConverter;
-import bot.dao.AbstractDao;
+import bot.dao.ClsAnswerDao;
+import bot.dao.ClsQuestDao;
 import bot.dao.UserDao;
+import bot.entity.ClsAnswerEntity;
+import bot.entity.ClsQuestEntity;
 import bot.replyMenu.MenuUtil;
-import com.github.fedy2.weather.YahooWeatherService;
-import com.github.fedy2.weather.data.Channel;
-import com.github.fedy2.weather.data.Forecast;
-import com.github.fedy2.weather.data.unit.DegreeUnit;
-import jdk.nashorn.internal.runtime.regexp.joni.Regex;
 import org.joda.time.LocalDate;
-import org.json.JSONObject;
-import org.json.JSONStringer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.telegram.telegrambots.ApiContextInitializer;
-import org.telegram.telegrambots.TelegramBotsApi;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
-import org.telegram.telegrambots.api.objects.CallbackQuery;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.api.objects.User;
 import org.telegram.telegrambots.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboard;
 import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.api.objects.replykeyboard.ReplyKeyboardRemove;
-import org.telegram.telegrambots.api.objects.replykeyboard.buttons.*;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.exceptions.TelegramApiException;
-import org.telegram.telegrambots.api.methods.send.SendMessage;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.JAXBException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
-import java.util.regex.*;
 
 import static java.lang.Math.toIntExact;
 
@@ -55,6 +36,11 @@ private LocalDate currentShownDates = new LocalDate();
     ApplicationContext context  = new FileSystemXmlApplicationContext("./resources/application-context.xml");
 
     UserDao dao = (UserDao) context.getBean("userDao");
+    ClsAnswerDao answerDao = (ClsAnswerDao) context.getBean("clsAnswerDao");
+    ClsQuestDao questDao = (ClsQuestDao) context.getBean("clsQuestDao");
+    ClsQuestEntity verAQuest=new ClsQuestEntity();
+    ClsAnswerEntity answer=new ClsAnswerEntity();
+
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -65,6 +51,7 @@ private LocalDate currentShownDates = new LocalDate();
             System.out.println(update.getMessage().getChatId());
             System.out.println(user);
             System.out.println(message_text);
+            List<ClsAnswerEntity> answerList = answerDao.getAll();
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
 
@@ -121,11 +108,38 @@ private LocalDate currentShownDates = new LocalDate();
             }
  //TODO Make quiz
  // ------------------------- ВИКТОРИНА -----------------------------------
-            else if (message_text.equals(MenuUtil.QUIZ)){
+            else if (message_text.equals(MenuUtil.QUIZ)) {
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
                         .setText(MenuUtil.QUIZ);
+                List<ClsQuestEntity> questList = questDao.getAll();
+
+                for (ClsQuestEntity a : questList) {
+                    for (ClsAnswerEntity answ : answerList) {
+                        message.setText(a.getQuestText());
+                        verAQuest = a;
+                        answer=answ;
+                        try {
+                            execute(message);
+                        } catch (TelegramApiException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
             }
+            //---------------------------Проверка правильности ответа-----------------------------
+            else if (message_text.equals(answer.getAnswerText())) {
+                SendMessage message = new SendMessage()
+                        .setChatId(chatId)
+                        .setText(MenuUtil.QUIZ);
+                message.setText("Правильно!  " + "\n" + answer.getAnswerComment());
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            }
+
  //TODO make converter
 // ------------------------- Конвертер валют -----------------------------------
             else if (message_text.equals(MenuUtil.CONVERTER)) {
@@ -142,6 +156,7 @@ private LocalDate currentShownDates = new LocalDate();
                         .setText(MenuUtil.NOTES);
 
             }
+
             else {
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
@@ -225,7 +240,7 @@ private LocalDate currentShownDates = new LocalDate();
             }
            /* case "Слава": {
                 sendMsg(msg, "");
-                break;
+                break;H
             }*/
 
         //TODO learn calendar to make notes

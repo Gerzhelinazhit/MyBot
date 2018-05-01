@@ -39,6 +39,9 @@
         <property name="mappingLocations">
             <list>
                 <value>classpath:beans/UserEntity.hbm.xml</value>
+                <value>classpath:beans/ClsAnswerEntity.hbm.xml</value>
+                <value>classpath:beans/ClsQuestEntity.hbm.xml</value>
+                <value>classpath:beans/ClsQuestPhotoEntity.hbm.xml</value>
             </list>
         </property>
 
@@ -59,6 +62,20 @@
 
     <bean id="abstractDao" class="bot.dao.AbstractDao" abstract="true">
         <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="clsAnswerDao" class="bot.dao.impl.ClsAnswerDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="answer" class="bot.entity.ClsAnswerEntity">
+    </bean>
+
+    <bean id="clsQuestDao" class="bot.dao.impl.ClsQuestDaoImpl">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="question" class="bot.entity.ClsQuestEntity">
     </bean>
 
 </beans>
