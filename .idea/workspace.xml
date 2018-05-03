@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="76f240e0-5297-439a-ae00-bec455a8721e" name="Default" comment="refactor to spring boot app&#10;Рабочий каркас викторины, функция генерации вопросов и ответов">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/bot/bot.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/bot/victorina/QuestionGeneration.java" />
+    <list default="true" id="76f240e0-5297-439a-ae00-bec455a8721e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/bot/Bot.java" afterPath="$PROJECT_DIR$/src/main/java/bot/Bot.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -52,10 +49,10 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/bot/Bot.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-325">
-              <caret line="46" column="4" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+              <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#13555#13587#0" expanded="true" />
+                <element signature="e#13551#13583#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -636,7 +633,7 @@
       <workItem from="1524486067266" duration="4399000" />
       <workItem from="1525207795413" duration="1675000" />
       <workItem from="1525263782529" duration="69000" />
-      <workItem from="1525327232490" duration="905000" />
+      <workItem from="1525327232490" duration="953000" />
     </task>
     <task id="LOCAL-00001" summary="added calendar but not full">
       <created>1519817675096</created>
@@ -764,11 +761,18 @@
       <option name="project" value="LOCAL" />
       <updated>1525206582105</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="refactor to spring boot app&#10;Рабочий каркас викторины, функция генерации вопросов и ответов">
+      <created>1525328194153</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1525328194153</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="190307000" />
+    <option name="totallyTimeSpent" value="190355000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1199,10 +1203,10 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/bot/Bot.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-325">
-          <caret line="46" column="4" lean-forward="false" selection-start-line="46" selection-start-column="4" selection-end-line="46" selection-end-column="4" />
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#13555#13587#0" expanded="true" />
+            <element signature="e#13551#13583#0" expanded="true" />
           </folding>
         </state>
       </provider>
