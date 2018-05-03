@@ -11,12 +11,14 @@ import bot.dao.UserDao;
 import bot.entity.ClsAnswerEntity;
 import bot.entity.ClsQuestEntity;
 import bot.replyMenu.MenuUtil;
+import bot.victorina.QuestionGeneration;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
+import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
@@ -37,13 +39,14 @@ public class Bot extends TelegramLongPollingBot {
     private LocalDate currentShownDates = new LocalDate();
 
     @Autowired
-    private UserDao userDao;
-    private ClsAnswerDao answerDao;
     private ClsQuestDao questDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private ClsAnswerDao answerDao;
 
-
-    ClsQuestEntity verAQuest = new ClsQuestEntity();
-    ClsAnswerEntity answer = new ClsAnswerEntity();
+    String answer = new String();
+    String comment = new String();
 
 
     @Override
@@ -55,6 +58,8 @@ public class Bot extends TelegramLongPollingBot {
             System.out.println(update.getMessage().getChatId());
             System.out.println(user);
             System.out.println(message_text);
+            List<ClsQuestEntity> questList = questDao.getAll();
+            List<ClsAnswerEntity> answerList = answerDao.getAll();
 
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
@@ -80,8 +85,8 @@ public class Bot extends TelegramLongPollingBot {
                 }
 
             }
-            // ------------------------- КАЛЕНДАРЬ -----------------------------------
-            else if (message_text.equals(MenuUtil.CALENDAR)) {
+ // ------------------------- КАЛЕНДАРЬ -----------------------------------
+            else if (message_text.equals(MenuUtil.CALENDAR)){
 
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
@@ -103,40 +108,51 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(calendar.generateKeyboard(LocalDate.now()));
             }
 //TODO make weather feature
-            // ------------------------- ПОГОДА -----------------------------------
-            else if (message_text.equals(MenuUtil.WEATHER)) {
+ // ------------------------- ПОГОДА -----------------------------------
+            else if (message_text.equals(MenuUtil.WEATHER)){
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
                         .setText(MenuUtil.WEATHER);
 
             }
-            //TODO Make quiz
-            // ------------------------- ВИКТОРИНА -----------------------------------
-//            else if (message_text.equals(MenuUtil.QUIZ)) {
-//                SendMessage message = new SendMessage()
-//                        .setChatId(chatId)
-//                        .setText(MenuUtil.QUIZ);
-//                List<ClsQuestEntity> questList = questDao.getAll();
-//
-//                for (ClsQuestEntity a : questList) {
-//                   for (ClsAnswerEntity answ : answerList) {
-//                        message.setText(a.getQuestText());
-//                        verAQuest = a;
-//                        answer = answ;
-//                        try {
-//                            execute(message);
-//                        } catch (TelegramApiException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//            }
-            //---------------------------Проверка правильности ответа-----------------------------
-            else if (message_text.equals(answer.getAnswerText())) {
+ //TODO Make quiz
+ // ------------------------- ВИКТОРИНА -----------------------------------
+            else if (message_text.equals(MenuUtil.QUIZ)|| message_text.equals("Конечно") ) {
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
                         .setText(MenuUtil.QUIZ);
-                message.setText("Правильно!  " + "\n" + answer.getAnswerComment());
+
+                QuestionGeneration questionGeneration=new QuestionGeneration(questList,answerList);
+                answer=questionGeneration.getAnswer();
+                comment=questionGeneration.getComment();
+                message.setText(questionGeneration.getQuestion());
+                try {
+                            execute(message); }
+                        catch (TelegramApiException e) {
+                            e.printStackTrace();
+                        }
+//                for (ClsQuestEntity a : questList) {
+//                    for (ClsAnswerEntity answ : answerList) {
+//                        message.setText(a.getQuestText());
+//                        verAQuest = a;
+//                        answer=answ;
+//                        try {
+//                            execute(message);
+//                            break;
+//                        }
+//                        catch (TelegramApiException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                    break;
+//                }
+            }
+//---------------------------Проверка правильности ответа-----------------------------
+            else if (message_text.equals(answer)){
+                SendMessage message = new SendMessage()
+                        .setChatId(chatId)
+                        .setText(MenuUtil.QUIZ);
+                message.setText("Правильно!  " + "\n" + comment);
                 try {
                     execute(message);
                 } catch (TelegramApiException e) {
@@ -144,7 +160,7 @@ public class Bot extends TelegramLongPollingBot {
                 }
             }
 
-            //TODO make converter
+ //TODO make converter
 // ------------------------- Конвертер валют -----------------------------------
             else if (message_text.equals(MenuUtil.CONVERTER)) {
                 SendMessage message = new SendMessage()
@@ -152,21 +168,23 @@ public class Bot extends TelegramLongPollingBot {
                         .setText(MenuUtil.CONVERTER);
 
             }
-            //TODO make Notes
+  //TODO make Notes
 // ------------------------- Заметки -----------------------------------
-            else if (message_text.equals(MenuUtil.NOTES)) {
+            else if (message_text.equals(MenuUtil.NOTES)){
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
                         .setText(MenuUtil.NOTES);
 
-            } else {
+            }
+
+            else {
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
                         .setText(message_text);
                 message.setText("Я пока не знаю что ответить");
-                try {
+                try{
                     execute(message);
-                } catch (TelegramApiException e) {
+                }   catch (TelegramApiException e){
                     e.printStackTrace();
                 }
             }
@@ -246,12 +264,12 @@ public class Bot extends TelegramLongPollingBot {
             }*/
 
         //TODO learn calendar to make notes
-        else if (update.hasCallbackQuery()) {
+         else if (update.hasCallbackQuery()) {
             // Set variables
             String call_data = update.getCallbackQuery().getData();
             long message_id = update.getCallbackQuery().getMessage().getMessageId();
             long chatId = update.getCallbackQuery().getMessage().getChatId();
-            System.out.println(call_data);
+            System.out.println( call_data);
             if (call_data.equals(">")) {
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
                 CalendarUtil calendar = new CalendarUtil();
@@ -271,7 +289,7 @@ public class Bot extends TelegramLongPollingBot {
                 } catch (TelegramApiException a) {
                     a.printStackTrace();
                 }
-            } else if (call_data.equals("<")) {
+            } else if (call_data.equals("<")){
                 InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
                 CalendarUtil calendar = new CalendarUtil();
 
@@ -286,7 +304,7 @@ public class Bot extends TelegramLongPollingBot {
                 currentShownDates = previousMonth;
                 try {
                     execute(new_message);
-                } catch (TelegramApiException e) {
+                }catch (TelegramApiException e){
                     e.printStackTrace();
                 }
             }
@@ -316,11 +334,10 @@ public class Bot extends TelegramLongPollingBot {
         s.setText(text);
         try { //Чтобы не крашнулась программа при вылете Exception
             sendMessage(s);
-        } catch (TelegramApiException e) {
+        } catch (TelegramApiException e){
             e.printStackTrace();
         }
     }
-
     @Override
     public String getBotToken() {
         return Config.BOT_TOKEN;
@@ -334,16 +351,16 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     @Deprecated
-    public String grammarChecker(String txt) {
+    public String grammarChecker(String txt){
 
         txt = txt.toLowerCase();
-        txt = txt.replaceAll("[\\p{Punct}&&[^/]]", "");
-        txt = txt.replaceAll("[\\p{Digit}]", "");
-        txt = txt.replaceAll("[№-№]", "");
-        txt = txt.replaceAll("[\u20BD-\u20BD]", "");
+        txt = txt.replaceAll("[\\p{Punct}&&[^/]]","");
+        txt = txt.replaceAll("[\\p{Digit}]","");
+        txt = txt.replaceAll("[№-№]","");
+        txt = txt.replaceAll("[\u20BD-\u20BD]","");
 
 
         return txt;
     }
-    //TODO make db with user info (FASTA)
+  //TODO make db with user info (FASTA)
 }
