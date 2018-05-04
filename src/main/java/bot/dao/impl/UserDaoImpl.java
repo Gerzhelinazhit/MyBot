@@ -14,13 +14,13 @@ import java.util.List;
 public class UserDaoImpl extends AbstractDao<Long, UserEntity> implements UserDao {
 
         @Override
-        public List<UserEntity> getAll(){
-        List list ;
+        public List<UserEntity> getAll() {
+                List list;
 
-        list =getEntityManager().createQuery("from UserEntity bot").getResultList();
+                list = getEntityManager().createQuery("from UserEntity bot").getResultList();
 
-        return list;
-    }
+                return list;
+        }
 
 
 }
