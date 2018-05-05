@@ -1,6 +1,5 @@
 package bot.config;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;

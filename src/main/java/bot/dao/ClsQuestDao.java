@@ -1,6 +1,7 @@
 package bot.dao;
 
 import bot.entity.ClsQuestEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

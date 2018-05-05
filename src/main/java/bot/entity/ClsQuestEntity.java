@@ -30,7 +30,7 @@ public class ClsQuestEntity {
     }
 
     @Basic
-    @Column(name = "QUEST_TEXT", nullable = true, length = -1)
+    @Column(name = "QUEST_TEXT", nullable = true, length = 101)
     public String getQuestText() {
         return questText;
     }

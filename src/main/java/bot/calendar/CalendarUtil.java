@@ -1,9 +1,6 @@
 package bot.calendar;
 
-import com.google.gson.Gson;
-
 import org.joda.time.LocalDate;
-import bot.calendar.model.KeyboardButton;
 import org.telegram.telegrambots.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.text.SimpleDateFormat;

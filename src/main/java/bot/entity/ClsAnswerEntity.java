@@ -31,7 +31,7 @@ public class ClsAnswerEntity {
     }
 
     @Basic
-    @Column(name = "ANSWER_TEXT", nullable = true, length = -1)
+    @Column(name = "ANSWER_TEXT", nullable = true, length = 101)
     public String getAnswerText() {
         return answerText;
     }
@@ -41,7 +41,7 @@ public class ClsAnswerEntity {
     }
 
     @Basic
-    @Column(name = "ANSWER_COMMENT", nullable = true, length = -1)
+    @Column(name = "ANSWER_COMMENT", nullable = true, length = 101)
     public String getAnswerComment() {
         return answerComment;
     }

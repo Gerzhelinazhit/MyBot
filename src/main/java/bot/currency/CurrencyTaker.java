@@ -1,21 +1,19 @@
 package bot.currency;
 
 import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 @Repository
 public class CurrencyTaker {
@@ -27,6 +25,14 @@ public class CurrencyTaker {
     URL url = new URL("http://www.nbrb.by/API/ExRates/Rates?Periodicity=0");
         JSONArray json = readJsonFromUrl("http://www.nbrb.by/API/ExRates/Rates?Periodicity=0");
         System.out.println(json.toString());
+        FileWriter fileWriter= new FileWriter(fileJson);
+       fileWriter.write(json.toString());
+        fileWriter.flush();
+        Type collectionType = new TypeToken<Collection<Currency>>(){}.getType();
+        Collection<Currency> enums = gson.fromJson(String.valueOf(json), collectionType);
+
+//        AllCurrency allCurrency = gson.fromJson(json.toString(),AllCurrency.class);
+
     InputStream is = url.openStream();
 
 //        HttpClient client = new DefaultHttpClient();

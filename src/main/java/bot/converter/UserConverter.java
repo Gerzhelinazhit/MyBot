@@ -1,11 +1,7 @@
 package bot.converter;
 
-import bot.dao.UserDao;
 import bot.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
-import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.api.objects.User;
 
 public class UserConverter {

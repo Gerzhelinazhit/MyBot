@@ -3,7 +3,6 @@ package bot.dao.impl;
 import bot.dao.AbstractDao;
 import bot.dao.UserDao;
 import bot.entity.UserEntity;
-import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

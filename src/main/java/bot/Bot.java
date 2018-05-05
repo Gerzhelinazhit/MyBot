@@ -1,8 +1,6 @@
 package bot;
 
 import bot.calendar.CalendarUtil;
-
-
 import bot.config.Config;
 import bot.converter.UserConverter;
 import bot.currency.CurrencyTaker;
@@ -15,11 +13,8 @@ import bot.replyMenu.MenuUtil;
 import bot.victorina.QuestionGeneration;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.FileSystemXmlApplicationContext;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
-import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.api.objects.Message;
 import org.telegram.telegrambots.api.objects.Update;
