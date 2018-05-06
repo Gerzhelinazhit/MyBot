@@ -4,6 +4,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
+          <unit-entry name="123.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
           <unit-entry name="a.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
           <unit-entry name="bot:hibernate.cfg.xml" />
           <unit-entry name="hibernate.cfg.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
