@@ -1,5 +1,7 @@
 package bot.currency;
 
+import bot.dao.CurrencyDao;
+import bot.entity.CurrencyEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
@@ -13,16 +15,15 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class CurrencyTaker {
     @Autowired
     Gson gson;
-
-    public void getCurrency() throws IOException {
+    @Autowired
+    CurrencyDao currencyDao;
+    public void takeCurrencyFromNBRB() throws IOException {
         File fileJson = new File("./resources/currency/currency.json");
-    URL url = new URL("http://www.nbrb.by/API/ExRates/Rates?Periodicity=0");
         JSONArray json = readJsonFromUrl("http://www.nbrb.by/API/ExRates/Rates?Periodicity=0");
         System.out.println(json.toString());
         FileWriter fileWriter= new FileWriter(fileJson);
@@ -31,30 +32,19 @@ public class CurrencyTaker {
         Type collectionType = new TypeToken<Collection<Currency>>(){}.getType();
         Collection<Currency> enums = gson.fromJson(String.valueOf(json), collectionType);
 
-//        AllCurrency allCurrency = gson.fromJson(json.toString(),AllCurrency.class);
-
-    InputStream is = url.openStream();
-
-//        HttpClient client = new DefaultHttpClient();
-//
-//        HttpGet request = new HttpGet("http://www.nbrb.by/API/ExRates/Rates?Periodicity=0");
-//        HttpResponse response = client.execute(request);
-//        BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-//        String line = "";
-//            line = rd.readLine();
-//            System.out.println(line);
-////        System.out.println(line.replaceAll("[\\[\\]]", ""));
-//        String jsonString = gson.toJson(line);
-//        FileWriter fileWriter= new FileWriter(fileJson);
-//        fileWriter.write(jsonString);
-//        fileWriter.flush();
-//    JSONObject parsedObject = new JSONObject(line.replaceAll("[\\[\\]]", ""));
-//
-//        int cur_id = parsedObject.getInt("Cur_ID");
-//        System.out.println(cur_id);
-
-
-
+        List<CurrencyEntity> forDelete = currencyDao.getAll();
+        for (CurrencyEntity item: forDelete) {
+            currencyDao.delete(item);
+        }
+        for (Currency item: enums) {
+            CurrencyEntity currencyEntity = new CurrencyEntity();
+            currencyEntity.setId(item.getCur_ID());
+            currencyEntity.setCurAbbreviation(item.getCur_Abbreviation());
+            currencyEntity.setCurName(item.getCur_Name());
+            currencyEntity.setCurOfficialRate(item.getCur_OfficialRate());
+            currencyEntity.setCurScale(item.getCur_Scale());
+            currencyDao.persist(currencyEntity);
+        }
     }
 
     public static JSONArray readJsonFromUrl(String url) throws IOException, JSONException {

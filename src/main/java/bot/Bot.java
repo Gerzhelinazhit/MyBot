@@ -2,13 +2,16 @@ package bot;
 
 import bot.calendar.CalendarUtil;
 import bot.config.Config;
+import bot.converter.CurrencyConverter;
 import bot.converter.UserConverter;
 import bot.currency.CurrencyTaker;
 import bot.dao.ClsAnswerDao;
 import bot.dao.ClsQuestDao;
+import bot.dao.CurrencyDao;
 import bot.dao.UserDao;
 import bot.entity.ClsAnswerEntity;
 import bot.entity.ClsQuestEntity;
+import bot.entity.CurrencyEntity;
 import bot.replyMenu.MenuUtil;
 import bot.victorina.QuestionGeneration;
 import org.joda.time.LocalDate;
@@ -43,6 +46,8 @@ public class Bot extends TelegramLongPollingBot {
     private ClsAnswerDao answerDao;
     @Autowired
     private CurrencyTaker currencyTaker;
+    @Autowired
+    private CurrencyDao currencyDao;
 
     String answer = new String();
     String comment = new String();
@@ -59,11 +64,13 @@ public class Bot extends TelegramLongPollingBot {
             System.out.println(message_text);
             List<ClsQuestEntity> questList = questDao.getAll();
             List<ClsAnswerEntity> answerList = answerDao.getAll();
+
             try {
-                currencyTaker.getCurrency();
+                currencyTaker.takeCurrencyFromNBRB();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
 
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
@@ -73,7 +80,7 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(userInfo);
                 UserConverter userConverter = new UserConverter();
 
-                userDao.persist(userConverter.getUserInfo(userInfo));
+               // userDao.persist(userConverter.getUserInfo(userInfo));
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
                         .setText(message_text);
@@ -171,6 +178,14 @@ public class Bot extends TelegramLongPollingBot {
                         .setChatId(chatId)
                         .setText(MenuUtil.CONVERTER);
 
+
+
+                message.setText(getCurrency());
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
             }
             //TODO make Notes
 // ------------------------- Заметки -----------------------------------
@@ -364,5 +379,27 @@ public class Bot extends TelegramLongPollingBot {
 
 
         return txt;
+    }
+
+    public String getCurrency(){
+
+        CurrencyEntity EURO = new CurrencyEntity();
+        CurrencyEntity USD = new CurrencyEntity();
+        CurrencyEntity RUB = new CurrencyEntity();
+        StringBuilder sb = new StringBuilder();
+        EURO = currencyDao.getByKey(292);
+        sb.append(EURO.getCurName()+" = ");
+        sb.append(EURO.getCurOfficialRate()+" BYN за ");
+        sb.append(EURO.getCurScale()+" единиц валюты.\n");
+        USD = currencyDao.getByKey(145);
+        sb.append(USD.getCurName()+" = ");
+        sb.append(USD.getCurOfficialRate()+" BYN за ");
+        sb.append(USD.getCurScale()+" единиц валюты.\n");
+        RUB = currencyDao.getByKey(298);
+        sb.append(RUB.getCurName()+" = ");
+        sb.append(RUB.getCurOfficialRate()+" BYN за ");
+        sb.append(RUB.getCurScale()+" единиц валюты.\n");
+
+        return sb.toString();
     }
 }

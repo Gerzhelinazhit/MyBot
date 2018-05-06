@@ -11,7 +11,6 @@ public class UserConverter {
 
 
     public UserEntity getUserInfo(User userInfo) {
-        UserEntity user = new UserEntity();
         user.setId(userInfo.getId());
         user.setFirstName(userInfo.getFirstName());
         user.setIsBot(Boolean.toString(userInfo.getBot()));
