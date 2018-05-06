@@ -187,11 +187,11 @@ public class Bot extends TelegramLongPollingBot {
                         .setText(MenuUtil.UPDATE_CURRENCY);
 
                 try {
-                currencyTaker.takeCurrencyFromNBRB();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            message.setText("Курс обновлен.");
+                    currencyTaker.takeCurrencyFromNBRB();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                message.setText("Курс обновлен.");
                 try {
                     execute(message);
                 } catch (TelegramApiException e) {
@@ -210,6 +210,20 @@ public class Bot extends TelegramLongPollingBot {
                 inlineKeyboardMarkup.setKeyboard(notesUtil.generateMenu());
 
                 message.setReplyMarkup(inlineKeyboardMarkup);
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+
+            }
+ // ------------------------- ДОБАВЛЕНИЕ ЗАМЕТКИ -----------------------------------
+            else if (message_text.contains("+")) {
+                SendMessage message = new SendMessage()
+                        .setChatId(chatId)
+                        .setText("Заметочка");
+                 String note = message_text.toString();
+                System.out.println(note.replaceAll("[+]",""));
                 try {
                     execute(message);
                 } catch (TelegramApiException e) {
@@ -347,7 +361,6 @@ public class Bot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             } else if (call_data.equals("Добавить")) {
-
 
 
                 EditMessageText new_message = new EditMessageText()
