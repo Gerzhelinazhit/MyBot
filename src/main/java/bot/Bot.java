@@ -11,6 +11,7 @@ import bot.dao.CurrencyDao;
 import bot.dao.UserDao;
 import bot.entity.ClsAnswerEntity;
 import bot.entity.ClsQuestEntity;
+import bot.notes.NotesUtil;
 import bot.replyMenu.MenuUtil;
 import bot.victorina.QuestionGeneration;
 import org.joda.time.LocalDate;
@@ -45,8 +46,6 @@ public class Bot extends TelegramLongPollingBot {
     private ClsAnswerDao answerDao;
     @Autowired
     private CurrencyTaker currencyTaker;
-    @Autowired
-    private CurrencyDao currencyDao;
     @Autowired
     private CurrencyConverter currencyConverter;
 
@@ -121,7 +120,7 @@ public class Bot extends TelegramLongPollingBot {
                         .setText(MenuUtil.WEATHER);
 
             }
-            //TODO Make quiz
+
             // ------------------------- ВИКТОРИНА -----------------------------------
             else if (message_text.equals(MenuUtil.QUIZ) || message_text.equals("Конечно")) {
                 SendMessage message = new SendMessage()
@@ -166,7 +165,7 @@ public class Bot extends TelegramLongPollingBot {
                 }
             }
 
-            //TODO make converter
+
 // ------------------------- Конвертер валют -----------------------------------
             else if (message_text.equals(MenuUtil.CONVERTER)) {
                 SendMessage message = new SendMessage()
@@ -205,6 +204,17 @@ public class Bot extends TelegramLongPollingBot {
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
                         .setText(MenuUtil.NOTES);
+
+                NotesUtil notesUtil = new NotesUtil();
+                InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+                inlineKeyboardMarkup.setKeyboard(notesUtil.generateMenu());
+
+                message.setReplyMarkup(inlineKeyboardMarkup);
+                try {
+                    execute(message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
 
             } else {
                 SendMessage message = new SendMessage() // Create a message object object
@@ -292,7 +302,7 @@ public class Bot extends TelegramLongPollingBot {
                 break;H
             }*/
 
-        //TODO learn calendar to make notes
+
         else if (update.hasCallbackQuery()) {
             // Set variables
             String call_data = update.getCallbackQuery().getData();
@@ -331,6 +341,19 @@ public class Bot extends TelegramLongPollingBot {
                         .setText("Предыдущий месяц")
                         .setReplyMarkup(inlineKeyboardMarkup);
                 currentShownDates = previousMonth;
+                try {
+                    execute(new_message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            } else if (call_data.equals("Добавить")) {
+
+
+
+                EditMessageText new_message = new EditMessageText()
+                        .setChatId(chatId)
+                        .setMessageId(toIntExact(message_id))
+                        .setText("Предыдущий месяц");
                 try {
                     execute(new_message);
                 } catch (TelegramApiException e) {

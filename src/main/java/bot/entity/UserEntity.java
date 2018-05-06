@@ -1,21 +1,16 @@
 package bot.entity;
 
-
-
-
-
 import javax.persistence.*;
-
 
 @Entity
 @Table(name = "user", schema = "bot", catalog = "")
 public class UserEntity {
     private int id;
-    private String firstName;
     private String isBot;
     private String lastName;
     private String userName;
     private String languageCode;
+    private String firstName;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -25,16 +20,6 @@ public class UserEntity {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "FIRST_NAME", nullable = true, length = 45)
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     @Basic
@@ -77,6 +62,16 @@ public class UserEntity {
         this.languageCode = languageCode;
     }
 
+    @Basic
+    @Column(name = "FIRST_NAME", nullable = true, length = 45)
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,11 +80,11 @@ public class UserEntity {
         UserEntity that = (UserEntity) o;
 
         if (id != that.id) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (isBot != null ? !isBot.equals(that.isBot) : that.isBot != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
         if (languageCode != null ? !languageCode.equals(that.languageCode) : that.languageCode != null) return false;
+        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
 
         return true;
     }
@@ -97,11 +92,11 @@ public class UserEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (isBot != null ? isBot.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         result = 31 * result + (languageCode != null ? languageCode.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         return result;
     }
 }

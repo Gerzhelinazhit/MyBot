@@ -1,9 +1,6 @@
 package bot.converter;
 
 import bot.entity.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.api.objects.User;
 
 public class UserConverter {
