@@ -2,6 +2,8 @@ package bot.entity;
 
 
 
+
+
 import javax.persistence.*;
 
 
