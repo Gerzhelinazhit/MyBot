@@ -360,7 +360,7 @@ public class Bot extends TelegramLongPollingBot {
                 } catch (TelegramApiException e) {
                     e.printStackTrace();
                 }
-            } else if (call_data.equals("Добавить")) {
+            } else if (call_data.equals("Очистить")) {
 
 
                 EditMessageText new_message = new EditMessageText()

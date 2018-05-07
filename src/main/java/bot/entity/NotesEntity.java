@@ -6,8 +6,9 @@ import javax.persistence.*;
 @Table(name = "notes", schema = "bot", catalog = "")
 public class NotesEntity {
     private int id;
-    private String note;
     private int idUser;
+    private String note;
+    private UserEntity userByIdUser;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -20,16 +21,6 @@ public class NotesEntity {
     }
 
     @Basic
-    @Column(name = "NOTE", nullable = false, length = 101)
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
-
-    @Basic
     @Column(name = "ID_USER", nullable = false)
     public int getIdUser() {
         return idUser;
@@ -37,6 +28,16 @@ public class NotesEntity {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    @Basic
+    @Column(name = "NOTE", nullable = false, length = 101)
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     @Override
@@ -56,8 +57,18 @@ public class NotesEntity {
     @Override
     public int hashCode() {
         int result = id;
-        result = 31 * result + (note != null ? note.hashCode() : 0);
         result = 31 * result + idUser;
+        result = 31 * result + (note != null ? note.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
+    public UserEntity getUserByIdUser() {
+        return userByIdUser;
+    }
+
+    public void setUserByIdUser(UserEntity userByIdUser) {
+        this.userByIdUser = userByIdUser;
     }
 }
