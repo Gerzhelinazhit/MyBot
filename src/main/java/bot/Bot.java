@@ -11,6 +11,7 @@ import bot.dao.CurrencyDao;
 import bot.dao.UserDao;
 import bot.entity.ClsAnswerEntity;
 import bot.entity.ClsQuestEntity;
+import bot.notes.NotesFunctional;
 import bot.notes.NotesUtil;
 import bot.replyMenu.MenuUtil;
 import bot.victorina.QuestionGeneration;
@@ -48,6 +49,8 @@ public class Bot extends TelegramLongPollingBot {
     private CurrencyTaker currencyTaker;
     @Autowired
     private CurrencyConverter currencyConverter;
+    @Autowired
+            private NotesFunctional notesFunctional;
 
     String answer = new String();
     String comment = new String();
@@ -65,6 +68,7 @@ public class Bot extends TelegramLongPollingBot {
             List<ClsQuestEntity> questList = questDao.getAll();
             List<ClsAnswerEntity> answerList = answerDao.getAll();
 
+            notesFunctional.getNotesforDelete();
 
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
@@ -74,7 +78,7 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(userInfo);
 
                 UserConverter userConverter = new UserConverter();
-                userDao.persist(userConverter.getUserInfo(userInfo));
+               userDao.persist(userConverter.getUserInfo(userInfo));
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
                         .setText(message_text);

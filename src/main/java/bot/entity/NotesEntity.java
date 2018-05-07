@@ -8,10 +8,9 @@ public class NotesEntity {
     private int id;
     private int idUser;
     private String note;
-    private UserEntity userByIdUser;
 
     @Id
-    @Column(name = "ID", nullable = false)
+    @Column(name = "id", nullable = false)
     public int getId() {
         return id;
     }
@@ -21,7 +20,7 @@ public class NotesEntity {
     }
 
     @Basic
-    @Column(name = "ID_USER", nullable = false)
+    @Column(name = "id_user", nullable = false)
     public int getIdUser() {
         return idUser;
     }
@@ -31,7 +30,7 @@ public class NotesEntity {
     }
 
     @Basic
-    @Column(name = "NOTE", nullable = false, length = 101)
+    @Column(name = "note", nullable = false, length = 101)
     public String getNote() {
         return note;
     }
@@ -60,15 +59,5 @@ public class NotesEntity {
         result = 31 * result + idUser;
         result = 31 * result + (note != null ? note.hashCode() : 0);
         return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
-    public UserEntity getUserByIdUser() {
-        return userByIdUser;
-    }
-
-    public void setUserByIdUser(UserEntity userByIdUser) {
-        this.userByIdUser = userByIdUser;
     }
 }

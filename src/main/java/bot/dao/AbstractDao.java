@@ -16,7 +16,7 @@ import java.lang.reflect.ParameterizedType;
 @Transactional
 public abstract class AbstractDao <PK extends Serializable, T> {
     private final Class<T> persistentClass;
-    private SessionFactory sessionFactory;
+
 
     @SuppressWarnings("uncheked")
     public AbstractDao() {
@@ -60,15 +60,8 @@ public T getByKey(PK key) {
 
     }
 
-    public CriteriaBuilder getCriteriaBuilder() {
-        return getSession().getCriteriaBuilder();
+    public CriteriaBuilder getCriteriaBuilder(){
+        return getEntityManager().getCriteriaBuilder();
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    public Session getSession() {
-        return sessionFactory.getCurrentSession();
-    }
 }
