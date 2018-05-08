@@ -24,7 +24,7 @@ public class NotesDaoImpl extends AbstractDao<Long, NotesEntity> implements Note
         return notes;
     }
     @Override
-    public List<NotesEntity> getNotesByUser(int i){
+    public List<NotesEntity> getNotesByUser(Long i){
         CriteriaBuilder builder = getCriteriaBuilder();
         CriteriaQuery<NotesEntity> criteria = builder.createQuery(NotesEntity.class);
         Root<NotesEntity> notesRoot = criteria.from(NotesEntity.class);

@@ -6,6 +6,7 @@
         <datasource-map>
           <unit-entry name="123.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
           <unit-entry name="213.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
+          <unit-entry name="231.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
           <unit-entry name="a.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
           <unit-entry name="bot:hibernate.cfg.xml" />
           <unit-entry name="hibernate.cfg.xml" value="81cd6485-a540-4337-8839-78bc53a3fc21" />
@@ -14,6 +15,7 @@
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/123.xml" />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/213.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/231.xml" />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/asd.xml" />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/dfghv.xml" />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/resources/hibernate.cfg.xml" />

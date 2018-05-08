@@ -1,6 +1,7 @@
 package bot.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "user", schema = "bot", catalog = "")
@@ -11,6 +12,7 @@ public class UserEntity {
     private String languageCode;
     private String lastName;
     private String userName;
+    private Collection<NotesEntity> notesById;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -98,5 +100,14 @@ public class UserEntity {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "userByIdUser")
+    public Collection<NotesEntity> getNotesById() {
+        return notesById;
+    }
+
+    public void setNotesById(Collection<NotesEntity> notesById) {
+        this.notesById = notesById;
     }
 }

@@ -10,5 +10,5 @@ public interface NotesDao {
     void update(NotesEntity notesEntity);
     void delete(NotesEntity notesEntity);
     NotesEntity getByKey(int i);
-    List getNotesByUser(int key);
+    List getNotesByUser(Long key);
 }

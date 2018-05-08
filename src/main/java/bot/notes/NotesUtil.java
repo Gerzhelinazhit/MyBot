@@ -10,7 +10,6 @@ public class NotesUtil {
     public List<List<InlineKeyboardButton>> generateMenu(){
         List<List<InlineKeyboardButton>> keyboard = new ArrayList<>();
         List<InlineKeyboardButton> controlsRow = new ArrayList<>();
-        controlsRow.add(createButton("Добавить","Добавить"));
         controlsRow.add(createButton("Показать","Показать"));
         controlsRow.add(createButton("Очистить","Очистить"));
         keyboard.add(controlsRow);

@@ -50,7 +50,7 @@ public class Bot extends TelegramLongPollingBot {
     @Autowired
     private CurrencyConverter currencyConverter;
     @Autowired
-            private NotesFunctional notesFunctional;
+    private NotesFunctional notesFunctional;
 
     String answer = new String();
     String comment = new String();
@@ -68,7 +68,7 @@ public class Bot extends TelegramLongPollingBot {
             List<ClsQuestEntity> questList = questDao.getAll();
             List<ClsAnswerEntity> answerList = answerDao.getAll();
 
-            notesFunctional.getNotesforDelete();
+
 
 //---------------------------/START/------------------------------------------------
             if (message_text.equals("/start")) {
@@ -225,9 +225,9 @@ public class Bot extends TelegramLongPollingBot {
             else if (message_text.contains("+")) {
                 SendMessage message = new SendMessage()
                         .setChatId(chatId)
-                        .setText("Заметочка");
-                 String note = message_text.toString();
-                System.out.println(note.replaceAll("[+]",""));
+                        .setText("Заметка добавлена");
+                 notesFunctional.addNotes(chatId,message_text.replaceAll("[+]",""));
+
                 try {
                     execute(message);
                 } catch (TelegramApiException e) {
@@ -367,10 +367,22 @@ public class Bot extends TelegramLongPollingBot {
             } else if (call_data.equals("Очистить")) {
 
 
-                EditMessageText new_message = new EditMessageText()
+                SendMessage new_message = new SendMessage()
                         .setChatId(chatId)
-                        .setMessageId(toIntExact(message_id))
-                        .setText("Предыдущий месяц");
+                        .setText("Заметки очищены");
+                notesFunctional.ClearNotes(chatId);
+                try {
+                    execute(new_message);
+                } catch (TelegramApiException e) {
+                    e.printStackTrace();
+                }
+            } else if (call_data.equals("Показать")) {
+
+                String notes = (notesFunctional.getNotes(chatId));
+                SendMessage new_message = new SendMessage()
+                        .setChatId(chatId)
+                        .setText("Ваши заметки: \n" + notes );
+
                 try {
                     execute(new_message);
                 } catch (TelegramApiException e) {
