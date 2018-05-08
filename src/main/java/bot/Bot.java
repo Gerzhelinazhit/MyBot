@@ -79,8 +79,8 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(update.getMessage().getChatId());
                 System.out.println(userInfo);
 
+                   userConverter.getUserInfo(userInfo);
 
-               userDao.persist(userConverter.getUserInfo(userInfo));
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
                         .setText(message_text);

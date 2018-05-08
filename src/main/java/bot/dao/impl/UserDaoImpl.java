@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class UserDaoImpl extends AbstractDao<Long, UserEntity> implements UserDao {
+public class UserDaoImpl extends AbstractDao<Integer, UserEntity> implements UserDao {
 
         @Override
         public List<UserEntity> getAll() {

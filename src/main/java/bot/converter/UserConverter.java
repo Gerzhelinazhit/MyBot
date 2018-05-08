@@ -11,19 +11,26 @@ public class UserConverter {
     @Autowired
     private UserDao userDao;
 
-    public UserEntity getUserInfo(User userInfo) {
+    public void getUserInfo(User userInfo) {
         UserEntity user = new UserEntity();
-        user.setId(userInfo.getId());
+        if (userDao.getByKey(userInfo.getId()) == null) {
+
+            user.setId(userInfo.getId());
+            user.setFirstName(userInfo.getFirstName());
+            user.setIsBot(Boolean.toString(userInfo.getBot()));
+            user.setLanguageCode(userInfo.getLanguageCode());
+            user.setLastName(userInfo.getLastName());
+            user.setUserName(userInfo.getUserName());
+            userDao.persist(user);
+        } else{
+            user.setId(userInfo.getId());
         user.setFirstName(userInfo.getFirstName());
         user.setIsBot(Boolean.toString(userInfo.getBot()));
         user.setLanguageCode(userInfo.getLanguageCode());
         user.setLastName(userInfo.getLastName());
         user.setUserName(userInfo.getUserName());
-        return user;
-    }
-    public void deleteUser(User user){
+        userDao.update(user);
+        }
 
-     UserEntity userId  = new UserEntity();
-     userDao.getByKey(Long.valueOf(user.getId()));
     }
 }

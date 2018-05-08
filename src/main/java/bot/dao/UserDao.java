@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface UserDao {
-    UserEntity getByKey(Long key);
+    UserEntity getByKey(Integer key);
     void persist(UserEntity userEntity);
     void update(UserEntity userEntity);
     void delete(UserEntity userEntity);
