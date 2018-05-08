@@ -12,5 +12,6 @@ public interface ClsQuestDao {
     void persist(ClsQuestEntity clsAnswerEntity);
     void update(ClsQuestEntity clsAnswerEntity);
     void delete(ClsQuestEntity clsAnswerEntity);
+    void flush ();
     List getAll();
 }

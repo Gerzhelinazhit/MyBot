@@ -9,6 +9,7 @@ public interface NotesDao {
     void persist(NotesEntity notesEntity);
     void update(NotesEntity notesEntity);
     void delete(NotesEntity notesEntity);
+    void flush ();
     NotesEntity getByKey(int i);
     List getNotesByUser(Long key);
 }

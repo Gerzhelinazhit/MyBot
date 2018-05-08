@@ -14,7 +14,7 @@ import java.lang.reflect.ParameterizedType;
 
 @Repository
 @Transactional
-public abstract class AbstractDao <PK extends Serializable, T> {
+public abstract class AbstractDao<PK extends Serializable, T> {
     private final Class<T> persistentClass;
 
 
@@ -23,7 +23,7 @@ public abstract class AbstractDao <PK extends Serializable, T> {
         this.persistentClass = (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
-@PersistenceContext
+    @PersistenceContext
     private EntityManager em;
 
 
@@ -31,7 +31,7 @@ public abstract class AbstractDao <PK extends Serializable, T> {
         return em;
     }
 
-public T getByKey(PK key) {
+    public T getByKey(PK key) {
 
         return getEntityManager().find(persistentClass, key);
     }
@@ -42,25 +42,26 @@ public T getByKey(PK key) {
     }
 
     public void update(T entity) {
-
         getEntityManager().merge(entity);
-
     }
-
-//    public List<MainTableEntity> getAll(){
+    //    public List<MainTableEntity> getAll(){
 //        List list ;
 //        getEntityManager().getTransaction().begin();
 //        list =getEntityManager().createQuery("from NationalityEntity laba3").getResultList();
 //        getEntityManager().getTransaction().commit();
 //        return list;
 //    }
+    public void flush() {
+        getEntityManager().flush();
+    }
+
 
     public void delete(T entity) {
         getEntityManager().remove(getEntityManager().contains(entity) ? entity : getEntityManager().merge(entity));
 
     }
 
-    public CriteriaBuilder getCriteriaBuilder(){
+    public CriteriaBuilder getCriteriaBuilder() {
         return getEntityManager().getCriteriaBuilder();
     }
 

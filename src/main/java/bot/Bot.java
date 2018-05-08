@@ -51,6 +51,8 @@ public class Bot extends TelegramLongPollingBot {
     private CurrencyConverter currencyConverter;
     @Autowired
     private NotesFunctional notesFunctional;
+    @Autowired
+    private UserConverter userConverter;
 
     String answer = new String();
     String comment = new String();
@@ -77,7 +79,7 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(update.getMessage().getChatId());
                 System.out.println(userInfo);
 
-                UserConverter userConverter = new UserConverter();
+
                userDao.persist(userConverter.getUserInfo(userInfo));
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)

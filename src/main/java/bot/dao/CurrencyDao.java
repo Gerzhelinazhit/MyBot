@@ -9,6 +9,7 @@ public interface CurrencyDao {
     void persist(CurrencyEntity currencyEntity);
     void update(CurrencyEntity currencyEntity);
     void delete(CurrencyEntity currencyEntity);
+    void flush ();
     List getAll();
     CurrencyEntity getByKey(int i);
 }

@@ -10,5 +10,6 @@ public interface UserDao {
     void persist(UserEntity userEntity);
     void update(UserEntity userEntity);
     void delete(UserEntity userEntity);
+    void flush ();
     List getAll();
 }
