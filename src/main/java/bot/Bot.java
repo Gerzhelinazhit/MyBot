@@ -202,7 +202,6 @@ public class Bot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
             }
-            //TODO make Notes
 // ------------------------- Заметки -----------------------------------
             else if (message_text.equals(MenuUtil.NOTES)) {
                 SendMessage message = new SendMessage()
