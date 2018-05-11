@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="76f240e0-5297-439a-ae00-bec455a8721e" name="Default" comment="result DB">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_2_0_0_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_boot_spring_boot_test_autoconfigure_1_5_6_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_test_4_3_10_RELEASE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MyBot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/MyBot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/currency/currency.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/currency/currency.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/database/database.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bot/config/Config.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bot/config/Config.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bot/dao/ResultDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bot/dao/ResultDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bot/dao/impl/ResultDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bot/dao/impl/ResultDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bot/entity/NotesEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bot/entity/NotesEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bot/entity/ResultEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bot/entity/ResultEntity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/bot/entity/UserEntity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/bot/entity/UserEntity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/bot/HibernateUtil.java" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -116,15 +101,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="3" selection-start-column="3" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -143,11 +119,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="application.properties" pinned="false" current-in-tab="false">
+      <file leaf-file-name="application.properties" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="153">
-              <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
+              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -350,23 +326,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bot" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MyBot" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MyBot" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="bot" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="MyBot" type="b2602c69:ProjectViewProjectNode" />
@@ -596,7 +555,7 @@
       <workItem from="1525691857083" duration="23000" />
       <workItem from="1525964652398" duration="4225000" />
       <workItem from="1526040761172" duration="2893000" />
-      <workItem from="1526068081426" duration="8708000" />
+      <workItem from="1526068081426" duration="9111000" />
     </task>
     <task id="LOCAL-00001" summary="added calendar but not full">
       <created>1519817675096</created>
@@ -808,11 +767,25 @@
       <option name="project" value="LOCAL" />
       <updated>1526040885351</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="jar added">
+      <created>1526077366328</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1526077366328</updated>
+    </task>
+    <task id="LOCAL-00032" summary="result DB">
+      <created>1526077396875</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1526077396875</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="272262000" />
+    <option name="totallyTimeSpent" value="272665000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -825,7 +798,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.1992288" side_tool="true" weight="0.41225627" />
@@ -928,7 +900,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
     <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
-    <MESSAGE value="day of week changes" />
     <MESSAGE value="Properties" />
     <MESSAGE value="resourse files added to jar" />
     <MESSAGE value="last else added" />
@@ -952,6 +923,7 @@
     <MESSAGE value="user adding fix" />
     <MESSAGE value="db fix" />
     <MESSAGE value="notex fix" />
+    <MESSAGE value="jar added" />
     <MESSAGE value="result DB" />
     <option name="LAST_COMMIT_MESSAGE" value="result DB" />
   </component>
@@ -978,13 +950,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" selection-start-line="7" selection-end-line="7" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/bot/HibernateUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1737,13 +1702,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/database/database.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="16" selection-start-line="9" selection-start-column="16" selection-end-line="9" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/target/classes/application.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -1757,6 +1715,13 @@
     <entry file="file://$PROJECT_DIR$/target/resources/botProps/bot.properties">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="3" selection-start-column="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/bot/config/Config.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -1767,10 +1732,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/src/main/java/bot/HibernateUtil.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
+        <state relative-caret-position="68">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
         </state>
       </provider>
     </entry>
