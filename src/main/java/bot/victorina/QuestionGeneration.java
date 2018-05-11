@@ -2,8 +2,8 @@ package bot.victorina;
 
 import bot.dao.ClsAnswerDao;
 import bot.dao.ClsQuestDao;
-import bot.entity.ClsAnswerEntity;
 import bot.entity.ClsQuestEntity;
+import bot.entity.ClsAnswerEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

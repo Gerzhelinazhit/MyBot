@@ -13,6 +13,7 @@ public class UserEntity {
     private String lastName;
     private String userName;
     private Collection<NotesEntity> notesById;
+    private ResultEntity resultById;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -109,5 +110,14 @@ public class UserEntity {
 
     public void setNotesById(Collection<NotesEntity> notesById) {
         this.notesById = notesById;
+    }
+
+    @OneToOne(mappedBy = "userByIdUser")
+    public ResultEntity getResultById() {
+        return resultById;
+    }
+
+    public void setResultById(ResultEntity resultById) {
+        this.resultById = resultById;
     }
 }

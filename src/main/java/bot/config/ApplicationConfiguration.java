@@ -25,7 +25,7 @@ import java.util.Properties;
 
 
 @PropertySource("classpath:application.properties")
-@ComponentScan({ "bot" })
+@ComponentScan({"bot"})
 @EnableTransactionManagement
 @Configuration
 public class ApplicationConfiguration {
