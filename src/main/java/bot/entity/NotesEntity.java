@@ -8,6 +8,7 @@ public class NotesEntity {
     private int id;
     private int idUser;
     private String note;
+    private String date;
     private UserEntity userByIdUser;
 
     @Id
@@ -40,6 +41,16 @@ public class NotesEntity {
         this.note = note;
     }
 
+    @Basic
+    @Column(name = "DATE", nullable = false, length = 45)
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -50,6 +61,7 @@ public class NotesEntity {
         if (id != that.id) return false;
         if (idUser != that.idUser) return false;
         if (note != null ? !note.equals(that.note) : that.note != null) return false;
+        if (date != null ? !date.equals(that.date) : that.date != null) return false;
 
         return true;
     }
@@ -59,6 +71,7 @@ public class NotesEntity {
         int result = id;
         result = 31 * result + idUser;
         result = 31 * result + (note != null ? note.hashCode() : 0);
+        result = 31 * result + (date != null ? date.hashCode() : 0);
         return result;
     }
 
