@@ -102,33 +102,105 @@
         <artifactId>mysql-connector-java</artifactId>
         <version>${mysql-connector-java.version}</version>
     </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-test</artifactId>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework</groupId>
-        <artifactId>spring-test</artifactId>
-        <version>4.3.10.RELEASE</version>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-test-autoconfigure</artifactId>
-        <version>1.5.6.RELEASE</version>
-        <scope>test</scope>
-    </dependency>
+    <!---->
+    <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-test</artifactId>-->
+        <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+        <!--<groupId>org.springframework</groupId>-->
+        <!--<artifactId>spring-test</artifactId>-->
+        <!--<version>4.3.10.RELEASE</version>-->
+        <!--<scope>test</scope>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+        <!--<groupId>org.springframework.boot</groupId>-->
+        <!--<artifactId>spring-boot-test-autoconfigure</artifactId>-->
+        <!--<version>1.5.6.RELEASE</version>-->
+        <!--<scope>test</scope>-->
+    <!--</dependency>-->
 </dependencies>
 
     <build>
         <finalName>TGBOT</finalName>
-        <resources>
-            <resource>
-                <directory>resources</directory>
-            </resource>
-        </resources>
         <plugins>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version> 2.5 </version>
+                <executions>
+                    <execution>
+                        <id> copy-resources </id>
+                        <phase> validate </phase>
+                        <goals>
+                            <goal> copy-resources </goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory> ${basedir}/target/resources/botProps </outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory> ${basedir}/target/classes/botProps </directory>
+                                    <includes>
+                                        <include> bot.properties </include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id> copy-resources1 </id>
+                        <phase> validate </phase>
+                        <goals>
+                            <goal> copy-resources </goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory> ${basedir}/target/resources/database </outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory> ${basedir}/target/classes/database </directory>
+                                    <includes>
+                                        <include> database.properties </include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id> copy-resources2 </id>
+                        <phase> validate </phase>
+                        <goals>
+                            <goal> copy-resources </goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory> ${basedir}/target/resources/currency </outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory> ${basedir}/target/classes/currency </directory>
+                                    <includes>
+                                        <include> currency.json </include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+            <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>2.0.2.RELEASE</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+
             <!-- download source code in Idea -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -151,28 +223,6 @@
                 </configuration>
             </plugin>
 
-            <!-- Make this jar executable -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.0.2</version>
-                <configuration>
-                    <!-- DO NOT include log4j.properties file in your Jar -->
-                    <excludes>
-                        <exclude>**/log4j.properties</exclude>
-                    </excludes>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <!-- Jar file entry point -->
-                            <mainClass>bot.Application</mainClass>
-                            <classpathPrefix>dependency-jars/</classpathPrefix>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-
-            <!-- Copy project dependency -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
