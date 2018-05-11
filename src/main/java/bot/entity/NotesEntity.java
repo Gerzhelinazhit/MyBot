@@ -1,14 +1,15 @@
 package bot.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "notes", schema = "bot", catalog = "")
 public class NotesEntity {
     private int id;
+    private String date;
     private int idUser;
     private String note;
-    private String date;
     private UserEntity userByIdUser;
 
     @Id
@@ -19,6 +20,16 @@ public class NotesEntity {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Basic
+    @Column(name = "DATE", nullable = false, length = 45)
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Basic
@@ -41,42 +52,25 @@ public class NotesEntity {
         this.note = note;
     }
 
-    @Basic
-    @Column(name = "DATE", nullable = false, length = 45)
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         NotesEntity that = (NotesEntity) o;
-
-        if (id != that.id) return false;
-        if (idUser != that.idUser) return false;
-        if (note != null ? !note.equals(that.note) : that.note != null) return false;
-        if (date != null ? !date.equals(that.date) : that.date != null) return false;
-
-        return true;
+        return id == that.id &&
+                idUser == that.idUser &&
+                Objects.equals(date, that.date) &&
+                Objects.equals(note, that.note);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + idUser;
-        result = 31 * result + (note != null ? note.hashCode() : 0);
-        result = 31 * result + (date != null ? date.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, date, idUser, note);
     }
 
     @ManyToOne
-    @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false, updatable = false,insertable = false)
+    @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false, insertable = false, updatable = false)
     public UserEntity getUserByIdUser() {
         return userByIdUser;
     }

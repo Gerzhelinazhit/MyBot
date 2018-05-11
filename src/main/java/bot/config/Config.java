@@ -6,8 +6,8 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
-    public static final String CONFIGURATION_BOT_FILE = "./resources/botProps/bot.properties";
-    public static final String CONFIGURATION_DB_FILE = "./resources/database/database.properties";
+    public static final String CONFIGURATION_BOT_FILE = "src/main/resources/botProps/bot.properties";
+    public static final String CONFIGURATION_DB_FILE = "src/main/resources/database/database.properties";
 
     public static String BOT_NAME;
     public static String BOT_TOKEN;

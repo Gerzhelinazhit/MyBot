@@ -2,6 +2,7 @@ package bot.entity;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "user", schema = "bot", catalog = "")
@@ -79,28 +80,19 @@ public class UserEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         UserEntity that = (UserEntity) o;
-
-        if (id != that.id) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (isBot != null ? !isBot.equals(that.isBot) : that.isBot != null) return false;
-        if (languageCode != null ? !languageCode.equals(that.languageCode) : that.languageCode != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
-
-        return true;
+        return id == that.id &&
+                Objects.equals(firstName, that.firstName) &&
+                Objects.equals(isBot, that.isBot) &&
+                Objects.equals(languageCode, that.languageCode) &&
+                Objects.equals(lastName, that.lastName) &&
+                Objects.equals(userName, that.userName);
     }
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (isBot != null ? isBot.hashCode() : 0);
-        result = 31 * result + (languageCode != null ? languageCode.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        return result;
+
+        return Objects.hash(id, firstName, isBot, languageCode, lastName, userName);
     }
 
     @OneToMany(mappedBy = "userByIdUser")

@@ -1,6 +1,7 @@
 package bot.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "result", schema = "bot", catalog = "")
@@ -44,26 +45,20 @@ public class ResultEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         ResultEntity that = (ResultEntity) o;
-
-        if (idUser != that.idUser) return false;
-        if (rightAnswers != null ? !rightAnswers.equals(that.rightAnswers) : that.rightAnswers != null) return false;
-        if (wrongAnswers != null ? !wrongAnswers.equals(that.wrongAnswers) : that.wrongAnswers != null) return false;
-
-        return true;
+        return idUser == that.idUser &&
+                Objects.equals(rightAnswers, that.rightAnswers) &&
+                Objects.equals(wrongAnswers, that.wrongAnswers);
     }
 
     @Override
     public int hashCode() {
-        int result = idUser;
-        result = 31 * result + (rightAnswers != null ? rightAnswers.hashCode() : 0);
-        result = 31 * result + (wrongAnswers != null ? wrongAnswers.hashCode() : 0);
-        return result;
+
+        return Objects.hash(idUser, rightAnswers, wrongAnswers);
     }
 
     @OneToOne
-    @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false)
+    @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false,insertable = false,updatable = false)
     public UserEntity getUserByIdUser() {
         return userByIdUser;
     }
