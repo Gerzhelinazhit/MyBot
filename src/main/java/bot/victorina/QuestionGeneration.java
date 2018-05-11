@@ -37,7 +37,7 @@ public class QuestionGeneration {
         return Comment;
     }
 
-    public QuestionGeneration( List<ClsQuestEntity> questList, List<ClsAnswerEntity> answerList){
+    public QuestionGeneration(List<ClsQuestEntity> questList, List<ClsAnswerEntity> answerList){
 
         int random=0+(int)(Math.random()*3);
         Question=questList.get(random).getQuestText();

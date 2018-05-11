@@ -7,7 +7,6 @@ import bot.converter.UserConverter;
 import bot.currency.CurrencyTaker;
 import bot.dao.ClsAnswerDao;
 import bot.dao.ClsQuestDao;
-import bot.dao.CurrencyDao;
 import bot.dao.UserDao;
 import bot.entity.ClsAnswerEntity;
 import bot.entity.ClsQuestEntity;
@@ -79,7 +78,7 @@ public class Bot extends TelegramLongPollingBot {
                 System.out.println(update.getMessage().getChatId());
                 System.out.println(userInfo);
 
-                   userConverter.getUserInfo(userInfo);
+                userConverter.getUserInfo(userInfo);
 
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)

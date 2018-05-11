@@ -1,7 +1,6 @@
 package bot.dao;
 
 import bot.entity.ClsAnswerEntity;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

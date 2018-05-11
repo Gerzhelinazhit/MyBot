@@ -4,7 +4,6 @@ import bot.dao.AbstractDao;
 import bot.dao.ClsAnswerDao;
 import bot.entity.ClsAnswerEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Repository

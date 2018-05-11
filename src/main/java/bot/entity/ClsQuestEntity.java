@@ -1,6 +1,7 @@
 package bot.entity;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "cls_quest", schema = "bot", catalog = "")
@@ -8,6 +9,7 @@ public class ClsQuestEntity {
     private long id;
     private Long isDeleted;
     private String questText;
+    private Collection<ClsAnswerEntity> clsAnswersById;
 
     @Id
     @Column(name = "ID", nullable = false)
@@ -30,7 +32,7 @@ public class ClsQuestEntity {
     }
 
     @Basic
-    @Column(name = "QUEST_TEXT", nullable = true, length = 101)
+    @Column(name = "QUEST_TEXT", nullable = true, length = 100)
     public String getQuestText() {
         return questText;
     }
@@ -59,5 +61,14 @@ public class ClsQuestEntity {
         result = 31 * result + (isDeleted != null ? isDeleted.hashCode() : 0);
         result = 31 * result + (questText != null ? questText.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "clsQuestByIdQuest")
+    public Collection<ClsAnswerEntity> getClsAnswersById() {
+        return clsAnswersById;
+    }
+
+    public void setClsAnswersById(Collection<ClsAnswerEntity> clsAnswersById) {
+        this.clsAnswersById = clsAnswersById;
     }
 }
