@@ -126,69 +126,6 @@
         <finalName>TGBOT</finalName>
         <plugins>
             <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version> 2.5 </version>
-                <executions>
-                    <execution>
-                        <id> copy-resources </id>
-                        <phase> validate </phase>
-                        <goals>
-                            <goal> copy-resources </goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory> ${basedir}/target/resources/botProps </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory> ${basedir}/target/classes/botProps </directory>
-                                    <includes>
-                                        <include> bot.properties </include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id> copy-resources1 </id>
-                        <phase> validate </phase>
-                        <goals>
-                            <goal> copy-resources </goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory> ${basedir}/target/resources/database </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory> ${basedir}/target/classes/database </directory>
-                                    <includes>
-                                        <include> database.properties </include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-
-                    <execution>
-                        <id> copy-resources2 </id>
-                        <phase> validate </phase>
-                        <goals>
-                            <goal> copy-resources </goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory> ${basedir}/target/resources/currency </outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory> ${basedir}/target/classes/currency </directory>
-                                    <includes>
-                                        <include> currency.json </include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-
-                </executions>
-            </plugin>
-            <plugin>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <version>2.0.2.RELEASE</version>

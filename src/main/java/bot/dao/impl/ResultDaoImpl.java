@@ -8,5 +8,5 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class ResultDaoImpl extends AbstractDao<Long, ResultEntity> implements ResultDao {
+public class ResultDaoImpl extends AbstractDao<Integer, ResultEntity> implements ResultDao {
 }

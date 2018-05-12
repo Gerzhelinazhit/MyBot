@@ -1,4 +1,5 @@
-package bot.victorina;
+package bot.quiz;
+
 
 import bot.dao.ClsAnswerDao;
 import bot.dao.ClsQuestDao;

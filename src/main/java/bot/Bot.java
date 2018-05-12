@@ -13,7 +13,8 @@ import bot.entity.ClsAnswerEntity;
 import bot.notes.NotesFunctional;
 import bot.notes.NotesUtil;
 import bot.replyMenu.MenuUtil;
-import bot.victorina.QuestionGeneration;
+import bot.quiz.ResultFunctional;
+import bot.quiz.QuestionGeneration;
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -52,6 +53,8 @@ public class Bot extends TelegramLongPollingBot {
     private NotesFunctional notesFunctional;
     @Autowired
     private UserConverter userConverter;
+    @Autowired
+    private ResultFunctional resultFunctional;
 
     String answer = new String();
     String comment = new String();
@@ -163,6 +166,7 @@ public class Bot extends TelegramLongPollingBot {
                         .setChatId(chatId)
                         .setText(MenuUtil.QUIZ);
                 message.setText("Правильно!  " + "\n" + comment);
+                resultFunctional.increaseResult(chatId);
                 try {
                     execute(message);
                 } catch (TelegramApiException e) {
