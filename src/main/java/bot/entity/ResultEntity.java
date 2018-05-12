@@ -57,7 +57,7 @@ public class ResultEntity {
         return Objects.hash(idUser, rightAnswers, wrongAnswers);
     }
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ID_USER", referencedColumnName = "ID", nullable = false,insertable = false,updatable = false)
     public UserEntity getUserByIdUser() {
         return userByIdUser;

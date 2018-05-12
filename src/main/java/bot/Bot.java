@@ -238,7 +238,20 @@ public class Bot extends TelegramLongPollingBot {
                     e.printStackTrace();
                 }
 
-            } else {
+
+ // ------------------------- Топ Викторины -----------------------------------
+            } else if(message_text.equals(MenuUtil.QUIZ_TOP)){
+                SendMessage message = new SendMessage()
+                        .setChatId(chatId)
+                        .setText(resultFunctional.getResult());
+                try {
+                    execute(message);
+                }catch (TelegramApiException e){
+                    e.printStackTrace();
+                }
+            }
+
+            else {
                 SendMessage message = new SendMessage() // Create a message object object
                         .setChatId(chatId)
                         .setText(message_text);

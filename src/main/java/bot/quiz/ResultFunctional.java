@@ -35,4 +35,15 @@ public class ResultFunctional {
       result.setRightAnswers(result.getRightAnswers()-1);
       resultDao.persist(result);
   }
+
+  public String getResult(){
+      List<ResultEntity> resultList =resultDao.getAll();
+      StringBuilder sb = new StringBuilder();
+      sb.append("Результат: \n");
+      for (ResultEntity result: resultList) {
+          sb.append(result.getUserByIdUser().getFirstName()+" " + result.getUserByIdUser().getLastName()+" - ");
+          sb.append(result.getRightAnswers()+"\n");
+      }
+      return sb.toString();
+  }
 }
