@@ -120,14 +120,6 @@ public class Bot extends TelegramLongPollingBot {
                 calendar.generateKeyboard(LocalDate.now());
                 System.out.println(calendar.generateKeyboard(LocalDate.now()));
             }
-//TODO make weather feature
-            // ------------------------- ПОГОДА -----------------------------------
-            else if (message_text.equals(MenuUtil.WEATHER)) {
-                SendMessage message = new SendMessage()
-                        .setChatId(chatId)
-                        .setText(MenuUtil.WEATHER);
-
-            }
 
             // ------------------------- ВИКТОРИНА -----------------------------------
             else if (message_text.equals(MenuUtil.QUIZ) || message_text.equals("Конечно")) {
@@ -265,79 +257,6 @@ public class Bot extends TelegramLongPollingBot {
         }
 
 
-        /*
-        while(m.find()) {
-            System.out.println(txt.substring(m.start(), m.end()) + "");
-            System.out.println(txt);
-        }*/
-          /*  switch (txt) {
-
-                case "слава украине": {
-                    sendMsg(msg, "Героям Слава!");
-                    break;
-                }
-                case "слава": {
-                    sendMsg(msg, "Украине!");
-                    break;
-                }
-                case "рыжий": {
-                    sendMsg(msg, "Наш Президент!");
-                    break;
-                }
-                case "/start": {
-                    sendMsg(msg, "Слава Украине!");
-                    break;
-                }
-                case "/calendar": {
-                    CalendarUtil calendar = new CalendarUtil();
-                    long chatId = update.getMessage().getChatId();
-                    SendMessage message = new SendMessage()
-                            .setChatId(chatId)
-                            .setText("You send /calendar");
-                    InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
-                    inlineKeyboardMarkup.setKeyboard(calendar.generateKeyboard(LocalDate.now()));
-                    System.out.println(LocalDate.now());
-                    message.setReplyMarkup(inlineKeyboardMarkup);
-                    try {
-                        execute(message);
-                    } catch (TelegramApiException e1) {
-                        e1.printStackTrace();
-                    }
-                    calendar.generateKeyboard(LocalDate.now());
-                    System.out.println(calendar.generateKeyboard(LocalDate.now()));
-
-
-                    break;
-                }
-                case "погода": {
-
-                    YahooWeatherService service = null;
-                    try {
-                        service = new YahooWeatherService();
-                    } catch (JAXBException e1) {
-                        e1.printStackTrace();
-                    }
-                    Channel channel = null;
-                    try {
-                        channel = service.getForecast("2460286", DegreeUnit.CELSIUS);
-                    } catch (JAXBException e1) {
-                        e1.printStackTrace();
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                    System.out.println(channel.getWind());
-                    sendMsg(msg, channel.getTitle());
-                    break;
-                }
-                default:
-                    sendMsg(msg, "Я пока не знаю что ответить");
-            }
-           /* case "Слава": {
-                sendMsg(msg, "");
-                break;H
-            }*/
-
-
         else if (update.hasCallbackQuery()) {
             // Set variables
             String call_data = update.getCallbackQuery().getData();
@@ -408,21 +327,6 @@ public class Bot extends TelegramLongPollingBot {
             }
         }
     }
-     /*   if (txt.equals("Слава Украине"||"слава украине"||"Слава украине")){
-            sendMsg(msg, "Героям Слава!");
-        // Тут будет то, что выполняется при получении сообщения
-        if (txt.equals("Слава"))
-            sendMsg(msg, "Украине!");
-        // Тут будет то, что выполняется при получении сообщения
-        if (txt.equals("Рыжий"))
-            sendMsg(msg, "Наш Президент!");
-        // Тут будет то, что выполняется при получении сообщения
-        if (txt.equals("/start"))
-            sendMsg(msg, "Слава Украине!");
-            // Тут будет то, что выполняется при получении сообщения
-        }
-
-        else sendMsg(msg, "Я пока не знаю что ответить");*/
 
 
     @SuppressWarnings("deprecation") // Означает то, что в новых версиях метод уберут или заменят

@@ -18,7 +18,6 @@ public static List<KeyboardRow> generateMenu(){
 
         KeyboardRow row = new KeyboardRow();
         row.add(CALENDAR);
-        row.add(WEATHER);
         keyboard.add(row);
 
         row = new KeyboardRow();
